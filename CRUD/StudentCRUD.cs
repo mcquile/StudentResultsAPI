@@ -52,13 +52,12 @@ internal class StudentCRUD
     /// Inserts a student into Students table of StudentResultDB
     /// </summary>
     /// <param name="student">Student</param>
-
     public static int CreateStudent(StudentWithoutID student)
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
         int studentID;
         string commandText = $@"INSERT INTO ""{Constants._StudentTableName}"" (""FirstName"", ""LastName"", ""DateOfBirth"") VALUES (@firstName, @lastName, @dateOfBirth) RETURNING ""StudentID""";
-        using (var cmd = new NpgsqlCommand(commandText, connectDb.connection))
+        using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
             cmd.Parameters.AddWithValue("firstName", student.firstName);
             cmd.Parameters.AddWithValue("lastName", student.lastName);
@@ -74,10 +73,11 @@ internal class StudentCRUD
     /// Updates the student entry corresponding to the Student instance passed as an argument
     /// </summary>
     /// <param name="student">Student</param>
-    public static void UpdateStudent(Student student)
+    public static int UpdateStudent(Student student)
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
-        var commandText = $@"UPDATE ""{Constants._StudentTableName}""
+        int rowsAffected = 0;
+        string commandText = $@"UPDATE ""{Constants._StudentTableName}""
                 SET ""FirstName"" = @firstName, ""LastName"" = @lastName, ""DateOfBirth"" = @dateOfBirth
                 WHERE ""StudentID"" = @studentID";
 
@@ -88,9 +88,10 @@ internal class StudentCRUD
             cmd.Parameters.AddWithValue("lastName", student.lastName);
             cmd.Parameters.AddWithValue("dateOfBirth", student.dateOfBirth);
                 
-            cmd.ExecuteNonQuery();
+            rowsAffected = cmd.ExecuteNonQuery();
         }
         connectDb.CloseConnection();
+        return rowsAffected;
     }
 
     /// <summary>
@@ -98,15 +99,17 @@ internal class StudentCRUD
     /// </summary>
     /// <param name="id">int</param>
     /// <param name="connection">NpgsqlConnection</param>
-    public static void DeleteStudentByID(int id)
+    public static int DeleteStudentByID(int id)
     {
+        int rowsAffected = 0;
         ConnectDB connectDb = new ConnectDB().OpenConnection();
         string commandText = $@"DELETE FROM ""{Constants._StudentTableName}"" WHERE ""StudentID"" = @id";
-        using (var cmd = new NpgsqlCommand(commandText, connectDb.connection))
+        using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
             cmd.Parameters.AddWithValue("id", id);
-            cmd.ExecuteNonQuery();
+            rowsAffected = cmd.ExecuteNonQuery();
         }
         connectDb.CloseConnection();
+        return rowsAffected;
     }
 }

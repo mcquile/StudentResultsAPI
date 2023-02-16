@@ -46,37 +46,31 @@ public class StudentController : Controller
     }
 
 
-    [HttpPatch("{id}")]
-    public IActionResult UpdateStudent(int id,
+    [HttpPut("{id}")]
+    public IActionResult UpdateStudent(
+        int id,
+        [Bind("firstName")] string firstName = "",
         [Bind("lastName")] string lastName = "",
-        [Bind("firstName")] string firstName = "")
+        [Bind("dateOfBirth")] DateTime? dateOfBirth = null)
     {
-        //if (student == null)
-        //{
-        //    return BadRequest();
-        //}
+        Dictionary<string, string> setDictionary = new Dictionary<string, string>();
 
-        //student.id = id;
-        //StudentCRUD.UpdateStudent(student);
 
-        Console.WriteLine($"firstName: {firstName}\nlastName: {lastName}");
+        StudentWithoutID student = new StudentWithoutID(firstName, lastName, dateOfBirth);
 
-        return CreatedAtRoute("GetStudentByID", new { id = id }, firstName);
+        UpdateUtility.mapDictionaryValues(ref setDictionary, student);
+
+        KeyValuePair<string, string> whereKeyValuePair = new KeyValuePair<string, string>("StudentID", id.ToString());
+
+        return new ObjectResult(UpdateUtility.generateUpdateQuery(Constants._StudentTableName, setDictionary, whereKeyValuePair));
+
+        //return CreatedAtRoute("GetStudentByID", new { id = id }, firstName);
     }
 
     [HttpDelete("{id}", Name = "DeleteStudentByID")]
     public IActionResult DeleteStudentByID(int id)
     {
-        try
-        {
-            StudentCRUD.DeleteStudentByID(id);
-            return new ObjectResult($"Successfully deleted student with id: {id}");
-        }
-        catch (Exception e)
-        {
-            return new ObjectResult($"Unable to delete student with id: {id}");
-        }
-
-
+        int rowsAffected = StudentCRUD.DeleteStudentByID(id);
+        return new ObjectResult($"Number of rows affected: {rowsAffected}");
     }
 }

@@ -61,12 +61,12 @@ public class Student
     /// <returns>Student</returns>
     public static Student MapToStudent(NpgsqlDataReader reader)
     {
-        var id = reader["StudentID"] as int?;
-        var firstName = reader["FirstName"] as string;
-        var lastName = reader["LastName"] as string;
-        var dateOfBirth = reader["DateOfBirth"] as DateTime?;
+        int id = (int)reader["StudentID"];
+        string firstName = (string)reader["FirstName"];
+        string lastName = (string)reader["LastName"];
+        DateTime dateOfBirth = (DateTime)reader["DateOfBirth"];
 
-        return new Student(id.Value, firstName, lastName, dateOfBirth.Value);
+        return new Student(id, firstName, lastName, dateOfBirth);
     }
 
     /// <summary>

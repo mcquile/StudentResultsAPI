@@ -29,11 +29,19 @@ public class StudentWithoutID
     public StudentWithoutID(
         string firstName,
         string lastName,
-        DateTime dateOfBirth)
+        DateTime? dateOfBirth)
     {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
+        if (dateOfBirth.HasValue)
+        {
+            this.dateOfBirth = dateOfBirth.Value;
+        }
+        else
+        {
+            this.dateOfBirth = DateTime.Today.AddYears(1);
+        }
+        
     }
 
     /// <summary>
@@ -43,8 +51,8 @@ public class StudentWithoutID
     /// <returns>Student</returns>
     public static Student MapToStudent(NpgsqlDataReader reader)
     {
-        string firstName = reader["FirstName"] as string;
-        string lastName = reader["LastName"] as string;
+        string firstName = (string)reader["FirstName"];
+        string lastName = (string)reader["LastName"];
         DateTime dateOfBirth = (DateTime)reader["DateOfBirth"];
 
         return new Student(firstName, lastName, dateOfBirth);
