@@ -1,28 +1,36 @@
 using Npgsql;
 using StudentResultsAPI.Models.LecturerModels;
-using StudentResultsAPI.Models.StudentModels;
 
 namespace StudentResultsAPI.CRUD;
 
 internal class LecturerCRUD
 {
+    /// <summary>
+    /// Selects all lecturers from the database and returns an array of Lecturer objects
+    /// </summary>
+    /// <returns>Lecturer[]</returns>
     public static Lecturer[] ReadAllLecturers()
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
-        List<Lecturer> studentsList = new List<Lecturer>();
+        List<Lecturer> lecturerList = new List<Lecturer>();
         using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM lecturers", connectDb.connection))
         {
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
                 while (reader.Read())
                 {
                     Lecturer lecturer = Lecturer.MapToLecturer(reader);
-                    studentsList.Add(lecturer);
+                    lecturerList.Add(lecturer);
                 }
         }
         connectDb.CloseConnection();
-        return studentsList.ToArray();
+        return lecturerList.ToArray();
     }
 
+    /// <summary>
+    /// Selects lecturer entry by ID from database and returns a Lecturer object
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>Lecturer</returns>
     public static Lecturer ReadLecturerByID(int id)
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
@@ -42,6 +50,11 @@ internal class LecturerCRUD
         return new Lecturer(-1, "", "");
     }
 
+    /// <summary>
+    /// Inserts a lecturer into Lecturers table of StudentResultDB
+    /// </summary>
+    /// <param name="lecturer"></param>
+    /// <returns>int</returns>
     public static int CreateLecturer(LecturerWithoutID lecturer)
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
@@ -99,7 +112,7 @@ internal class LecturerCRUD
     {
         int rowsAffected = 0;
         ConnectDB connectDb = new ConnectDB().OpenConnection();
-        string commandText = $@"DELETE FROM Lecturers WHERE lecturer = @id";
+        string commandText = $@"DELETE FROM Lecturers WHERE lecturerid = @id";
         using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
             cmd.Parameters.AddWithValue("id", id);

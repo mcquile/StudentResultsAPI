@@ -55,6 +55,7 @@ internal class StudentCRUD
     /// Inserts a student into Students table of StudentResultDB
     /// </summary>
     /// <param name="student">Student</param>
+    /// <returns>int</returns>
     public static int CreateStudent(StudentWithoutID student)
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
