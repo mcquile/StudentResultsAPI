@@ -32,12 +32,12 @@ public class LecturerWithoutID
 
         if (this.firstName.Length != 0)
         {
-            setDictionary.Add("FirstName", this.firstName);
+            setDictionary.Add("firstname", this.firstName);
         }
 
         if (this.lastName.Length != 0)
         {
-            setDictionary.Add("lastname", lastName);
+            setDictionary.Add("lastname", this.lastName);
         }
 
         return setDictionary;

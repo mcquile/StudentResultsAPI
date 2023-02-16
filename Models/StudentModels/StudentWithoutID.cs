@@ -38,17 +38,17 @@ public class StudentWithoutID
 
         if (this.firstName.Length != 0)
         {
-            setDictionary.Add("FirstName", this.firstName);
+            setDictionary.Add("firstname", this.firstName);
         }
 
         if (this.lastName.Length != 0)
         {
-            setDictionary.Add("lastname", lastName);
+            setDictionary.Add("lastname", this.lastName);
         }
 
         if (this.dateOfBirth < DateTime.Now)
         {
-            setDictionary.Add("DateOfBirth", this.dateOfBirth.ToString("yyyy-MM-dd"));
+            setDictionary.Add("dateofbirth", this.dateOfBirth.ToString("yyyy-MM-dd"));
         }
 
         return setDictionary;
