@@ -1,4 +1,4 @@
-﻿namespace WebApiExample;
+﻿namespace StudentResultsAPI;
 
 internal class Constants
 {

@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace WebApiExample;
+namespace StudentResultsAPI;
 
 internal class ConnectDB
 {

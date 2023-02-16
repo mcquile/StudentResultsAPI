@@ -1,6 +1,7 @@
 ﻿using Npgsql;
+using StudentResultsAPI.Models.StudentModels;
 
-namespace WebApiExample;
+namespace StudentResultsAPI;
 
 internal class StudentCRUD
 {
@@ -52,7 +53,7 @@ internal class StudentCRUD
     /// </summary>
     /// <param name="student">Student</param>
 
-    public static int CreateStudent(Student student)
+    public static int CreateStudent(StudentWithoutID student)
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
         int studentID;

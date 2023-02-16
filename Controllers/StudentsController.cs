@@ -2,9 +2,9 @@
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApiExample;
+using StudentResultsAPI.Models.StudentModels;
 
-namespace WebApiExample.Controllers;
+namespace StudentResultsAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -28,14 +28,12 @@ public class StudentController : Controller
     [HttpGet("{id}", Name = "GetStudentByID")]
     public IActionResult GetStudentByID(int id)
     {
-        ConnectDB connectDb = new ConnectDB().OpenConnection();
         Student student = StudentCRUD.ReadStudentByID(id);
-        connectDb.CloseConnection();
         return new ObjectResult(student);
     }
 
     [HttpPost]
-    public IActionResult CreateNewStudent([Bind("firstName, lastName", "dateOfBirth")] Student student)
+    public IActionResult CreateNewStudent([Bind("firstName, lastName", "dateOfBirth")] StudentWithoutID student)
     {
         if (student == null)
         {
@@ -43,22 +41,42 @@ public class StudentController : Controller
         }
 
         int newStudentID = StudentCRUD.CreateStudent(student);
-        student.id = newStudentID;
 
         return CreatedAtRoute("GetStudentByID", new { id = newStudentID }, student);
     }
 
+
     [HttpPatch("{id}")]
-    public IActionResult UpdateStudent(int id, [FromBody] Student student)
+    public IActionResult UpdateStudent(int id,
+        [Bind("lastName")] string lastName = "",
+        [Bind("firstName")] string firstName = "")
     {
-        if (student == null)
+        //if (student == null)
+        //{
+        //    return BadRequest();
+        //}
+
+        //student.id = id;
+        //StudentCRUD.UpdateStudent(student);
+
+        Console.WriteLine($"firstName: {firstName}\nlastName: {lastName}");
+
+        return CreatedAtRoute("GetStudentByID", new { id = id }, firstName);
+    }
+
+    [HttpDelete("{id}", Name = "DeleteStudentByID")]
+    public IActionResult DeleteStudentByID(int id)
+    {
+        try
         {
-            return BadRequest();
+            StudentCRUD.DeleteStudentByID(id);
+            return new ObjectResult($"Successfully deleted student with id: {id}");
+        }
+        catch (Exception e)
+        {
+            return new ObjectResult($"Unable to delete student with id: {id}");
         }
 
-        student.id = id;
-        StudentCRUD.UpdateStudent(student);
 
-         return CreatedAtRoute("GetStudentByID", new { id = id }, student);
     }
 }
