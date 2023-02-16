@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using System.Globalization;
+using Npgsql;
 using StudentResultsAPI.Models.StudentModels;
 
 namespace StudentResultsAPI;
@@ -10,7 +11,7 @@ internal class StudentCRUD
         ConnectDB connectDb = new ConnectDB().OpenConnection();
         List<Student> studentsList = new List<Student> ();
         string commandText = $@"SELECT * FROM ""{Constants._StudentTableName}""";
-        using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
+        using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM Students", connectDb.connection))
         {
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
                 while (reader.Read())
@@ -69,25 +70,50 @@ internal class StudentCRUD
         return studentID;
     }
 
+    ///// <summary>
+    ///// Updates the student entry corresponding to the Student instance passed as an argument
+    ///// </summary>
+    ///// <param name="student">Student</param>
+    //public static int UpdateStudent(Student student)
+    //{
+    //    ConnectDB connectDb = new ConnectDB().OpenConnection();
+    //    int rowsAffected = 0;
+    //    string commandText = $@"UPDATE ""{Constants._StudentTableName}""
+    //            SET ""FirstName"" = @firstName, ""LastName"" = @lastName, ""DateOfBirth"" = @dateOfBirth
+    //            WHERE ""StudentID"" = @studentID";
+
+    //    using (var cmd = new NpgsqlCommand(commandText, connectDb.connection))
+    //    {
+    //        cmd.Parameters.AddWithValue("studentID", student.id);
+    //        cmd.Parameters.AddWithValue("firstName", student.firstName);
+    //        cmd.Parameters.AddWithValue("lastName", student.lastName);
+    //        cmd.Parameters.AddWithValue("dateOfBirth", student.dateOfBirth);
+
+    //        rowsAffected = cmd.ExecuteNonQuery();
+    //    }
+    //    connectDb.CloseConnection();
+    //    return rowsAffected;
+    //}
+
     /// <summary>
     /// Updates the student entry corresponding to the Student instance passed as an argument
     /// </summary>
     /// <param name="student">Student</param>
-    public static int UpdateStudent(Student student)
+    public static int UpdateStudent(int id,StudentWithoutID student)
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
         int rowsAffected = 0;
-        string commandText = $@"UPDATE ""{Constants._StudentTableName}""
-                SET ""FirstName"" = @firstName, ""LastName"" = @lastName, ""DateOfBirth"" = @dateOfBirth
-                WHERE ""StudentID"" = @studentID";
 
-        using (var cmd = new NpgsqlCommand(commandText, connectDb.connection))
+        Dictionary<string, string> setDictionary = new Dictionary<string, string>();
+
+        UpdateUtility.mapDictionaryValues(ref setDictionary, student);
+
+        KeyValuePair<string, string> whereKeyValuePair = new KeyValuePair<string, string>("StudentID", id.ToString());
+
+        string commandText = UpdateUtility.generateUpdateQuery(Constants._StudentTableName, setDictionary, whereKeyValuePair);
+
+        using (var cmd = new NpgsqlCommand(UpdateUtility.generateUpdateQuery(Constants._StudentTableName, setDictionary, whereKeyValuePair), connectDb.connection))
         {
-            cmd.Parameters.AddWithValue("studentID", student.id);
-            cmd.Parameters.AddWithValue("firstName", student.firstName);
-            cmd.Parameters.AddWithValue("lastName", student.lastName);
-            cmd.Parameters.AddWithValue("dateOfBirth", student.dateOfBirth);
-                
             rowsAffected = cmd.ExecuteNonQuery();
         }
         connectDb.CloseConnection();

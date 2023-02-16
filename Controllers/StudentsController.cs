@@ -1,7 +1,6 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using StudentResultsAPI.Models.StudentModels;
 
 namespace StudentResultsAPI.Controllers;
@@ -53,16 +52,11 @@ public class StudentController : Controller
         [Bind("lastName")] string lastName = "",
         [Bind("dateOfBirth")] DateTime? dateOfBirth = null)
     {
-        Dictionary<string, string> setDictionary = new Dictionary<string, string>();
-
-
         StudentWithoutID student = new StudentWithoutID(firstName, lastName, dateOfBirth);
 
-        UpdateUtility.mapDictionaryValues(ref setDictionary, student);
+        int rowsAffected = StudentCRUD.UpdateStudent(id, student);
 
-        KeyValuePair<string, string> whereKeyValuePair = new KeyValuePair<string, string>("StudentID", id.ToString());
-
-        return new ObjectResult(UpdateUtility.generateUpdateQuery(Constants._StudentTableName, setDictionary, whereKeyValuePair));
+        return new ObjectResult($"Rows affected: {rowsAffected}");
 
         //return CreatedAtRoute("GetStudentByID", new { id = id }, firstName);
     }

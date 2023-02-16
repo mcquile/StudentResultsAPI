@@ -13,11 +13,10 @@ public class UpdateUtility
             return "";
         }
         StringBuilder updateStringBuilder = new StringBuilder();
-        updateStringBuilder.Append("UPDATE ");
-        updateStringBuilder.Append(tableName+ " SET ");
+        updateStringBuilder.Append($"UPDATE {tableName.ToLower()} SET ");
         foreach (KeyValuePair<string, string> kvp in setDictionary)
         {
-            updateStringBuilder.Append(kvp.Key + " = " + kvp.Value + ", ");
+            updateStringBuilder.Append($"{kvp.Key} = {kvp.Value}, ");
         }
 
         if (setDictionary.Count>0)
@@ -25,27 +24,28 @@ public class UpdateUtility
             updateStringBuilder.Length-=2;
         }
         
-        updateStringBuilder.Append(" ");
-        updateStringBuilder.Append("WHERE " + whereKeyValuePair.Key + " = " + whereKeyValuePair.Value);
+        updateStringBuilder.Append($" WHERE {whereKeyValuePair.Key} = {whereKeyValuePair.Value}");
 
-        return updateStringBuilder.ToString();
+        string updateQueryString = updateStringBuilder.ToString();
+
+        return updateQueryString;
     }
 
     public static void mapDictionaryValues(ref Dictionary<string, string> setDictionary, StudentWithoutID student)
     {
         if (student.firstName.Length != 0)
         {
-            setDictionary.Add("firstName", student.firstName);
+            setDictionary.Add("FirstName", $@"""{student.firstName}""");
         }
 
         if (student.lastName.Length != 0)
         {
-            setDictionary.Add("lastName", student.lastName);
+            setDictionary.Add("lastname", $@"""{student.lastName}""");
         }
 
         if (student.dateOfBirth != null && student.dateOfBirth < DateTime.Now)
         {  
-            setDictionary.Add("dateOfBirth", student.dateOfBirth.ToString("yyyy-MM-dd"));
+            setDictionary.Add("DateOfBirth", student.dateOfBirth.ToString("yyyy-MM-dd"));
         }
     }
 }
