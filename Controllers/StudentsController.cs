@@ -1,6 +1,5 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using System.Xml.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using StudentResultsAPI.CRUD;
 using StudentResultsAPI.Models.StudentModels;
 
 namespace StudentResultsAPI.Controllers;

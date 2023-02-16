@@ -1,32 +1,26 @@
-﻿namespace StudentResultsAPI.Models.StudentModels;
+namespace StudentResultsAPI.Models.LecturerModels;
 
 /// <summary>
-/// Class that serves as a model for the Students table in the StudentResultsDB
+/// Class that serves as a model for the Lecturers table in the StudentResultsDB
 /// </summary>
-public class StudentWithoutID
+public class LecturerWithoutID
 {
     public string firstName { get; set; }
     public string lastName { get; set; }
-    public DateTime dateOfBirth { get; set; }
-    public StudentWithoutID() { }
 
     /// <summary>
-    /// Constructor to instantiate student object with a default id of 0. Useful in cases where the ID field is not needed, such as Insert for example.
+    /// Constructor to instantiate all attributes of class
     /// </summary>
+    /// <param name="id">int</param>
     /// <param name="firstName">string</param>
     /// <param name="lastName">string</param>
-    /// <param name="dateOfBirth">DateTime</param>
-    public StudentWithoutID(
+    public LecturerWithoutID(
         string firstName,
-        string lastName,
-        DateTime? dateOfBirth)
+        string lastName)
     {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth ?? DateTime.Today.AddYears(1);
-        
     }
-
 
     /// <summary>
     /// Creates a dictionary entry for properties which are not null or empty.
@@ -44,11 +38,6 @@ public class StudentWithoutID
         if (this.lastName.Length != 0)
         {
             setDictionary.Add("lastname", lastName);
-        }
-
-        if (this.dateOfBirth < DateTime.Now)
-        {
-            setDictionary.Add("DateOfBirth", this.dateOfBirth.ToString("yyyy-MM-dd"));
         }
 
         return setDictionary;
