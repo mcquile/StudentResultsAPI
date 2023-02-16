@@ -16,7 +16,7 @@ public class UpdateUtility
         updateStringBuilder.Append($"UPDATE {tableName.ToLower()} SET ");
         foreach (KeyValuePair<string, string> kvp in setDictionary)
         {
-            updateStringBuilder.Append($"{kvp.Key} = {kvp.Value}, ");
+            updateStringBuilder.Append($"{kvp.Key} = @{kvp.Key}, ");
         }
 
         if (setDictionary.Count>0)
@@ -40,7 +40,7 @@ public class UpdateUtility
 
         if (student.lastName.Length != 0)
         {
-            setDictionary.Add("lastname", $@"""{student.lastName}""");
+            setDictionary.Add("lastname", student.lastName);
         }
 
         if (student.dateOfBirth != null && student.dateOfBirth < DateTime.Now)

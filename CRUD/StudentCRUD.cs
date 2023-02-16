@@ -102,6 +102,7 @@ internal class StudentCRUD
     public static int UpdateStudent(int id,StudentWithoutID student)
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
+
         int rowsAffected = 0;
 
         Dictionary<string, string> setDictionary = new Dictionary<string, string>();
@@ -112,9 +113,14 @@ internal class StudentCRUD
 
         string commandText = UpdateUtility.generateUpdateQuery(Constants._StudentTableName, setDictionary, whereKeyValuePair);
 
-        using (var cmd = new NpgsqlCommand(UpdateUtility.generateUpdateQuery(Constants._StudentTableName, setDictionary, whereKeyValuePair), connectDb.connection))
+        using (NpgsqlCommand cmd = new NpgsqlCommand(UpdateUtility.generateUpdateQuery(Constants._StudentTableName, setDictionary, whereKeyValuePair), connectDb.connection))
         {
+            foreach (KeyValuePair<string, string> keyValuePair in setDictionary)
+            {
+                cmd.Parameters.AddWithValue(keyValuePair.Key, keyValuePair.Value);
+            }
             rowsAffected = cmd.ExecuteNonQuery();
+
         }
         connectDb.CloseConnection();
         return rowsAffected;
