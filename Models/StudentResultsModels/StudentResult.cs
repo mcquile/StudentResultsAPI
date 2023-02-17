@@ -5,7 +5,7 @@ namespace StudentResultsAPI.Models.StudentResultsModels;
 /// <summary>
 /// Class that serves as a model for the StudentResults table in the StudentResultsDB
 /// </summary>
-public class StudentResults
+public class StudentResult
 {
     public int id { get; set; }
     public int studentID { get; set; }
@@ -20,7 +20,7 @@ public class StudentResults
     /// <param name="studentID">int</param>
     /// <param name="moduleExaminationsID">int</param>
     /// <param name="mark">double</param>
-    public StudentResults(
+    public StudentResult(
         int id,
         int studentID,
         int moduleExaminationsID,
@@ -37,13 +37,13 @@ public class StudentResults
     /// </summary>
     /// <param name="reader">NpgsqlDataReader</param>
     /// <returns>Lecturer</returns>
-    public static StudentResults MapToStudentResults(NpgsqlDataReader reader)
+    public static StudentResult MapToStudentResults(NpgsqlDataReader reader)
     {
         int id = (int)reader["studentresultsid"];
         int studentID = (int)reader["studentid"];
         int moduleExaminationsID = (int)reader["moduleexaminationsid"];
         double mark = (double)reader["mark"];
 
-        return new StudentResults(id, studentID, moduleExaminationsID, mark);
+        return new StudentResult(id, studentID, moduleExaminationsID, mark);
     }
 }
