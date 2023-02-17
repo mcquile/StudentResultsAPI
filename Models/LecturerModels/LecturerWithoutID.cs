@@ -11,7 +11,6 @@ public class LecturerWithoutID
     /// <summary>
     /// Constructor to instantiate all attributes of class
     /// </summary>
-    /// <param name="id">int</param>
     /// <param name="firstName">string</param>
     /// <param name="lastName">string</param>
     public LecturerWithoutID(
