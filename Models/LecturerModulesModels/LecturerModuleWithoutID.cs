@@ -5,7 +5,7 @@ namespace StudentResultsAPI.Models.LecturerModulesModels;
 /// <summary>
 /// Class that serves as a model for the LecturerModulesWithoutID table in the StudentResultsDB
 /// </summary>
-public class LecturerModulesWithoutID
+public class LecturerModuleWithoutID
 {
     public int lecturerID { get; set; }
     public int moduleID { get; set; }
@@ -18,7 +18,7 @@ public class LecturerModulesWithoutID
     /// <param name="lecturerId">int</param>
     /// <param name="moduleId">int</param>
     /// <param name="activeStatus">bool</param>
-    public LecturerModulesWithoutID(
+    public LecturerModuleWithoutID(
         int lecturerId,
         int moduleId,
         bool activeStatus)
