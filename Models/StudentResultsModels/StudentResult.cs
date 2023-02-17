@@ -10,7 +10,7 @@ public class StudentResult
     public int id { get; set; }
     public int studentID { get; set; }
     public int moduleExaminationsID { get; set; }
-    public double mark { get; set; }
+    public decimal mark { get; set; }
 
 
     /// <summary>
@@ -19,12 +19,12 @@ public class StudentResult
     /// <param name="id">int</param>
     /// <param name="studentID">int</param>
     /// <param name="moduleExaminationsID">int</param>
-    /// <param name="mark">double</param>
+    /// <param name="mark">decimal</param>
     public StudentResult(
         int id,
         int studentID,
         int moduleExaminationsID,
-        double mark)
+        decimal mark)
     {
         this.id = id;
         this.studentID = studentID;
@@ -42,7 +42,7 @@ public class StudentResult
         int id = (int)reader["studentresultsid"];
         int studentID = (int)reader["studentid"];
         int moduleExaminationsID = (int)reader["moduleexaminationsid"];
-        double mark = (double)reader["mark"];
+        decimal mark = (decimal)reader["mark"];
 
         return new StudentResult(id, studentID, moduleExaminationsID, mark);
     }

@@ -9,7 +9,7 @@ public class StudentResultWithoutID
 {
     public int studentID { get; set; }
     public int moduleExaminationsID { get; set; }
-    public double mark { get; set; }
+    public decimal mark { get; set; }
 
 
     /// <summary>
@@ -17,11 +17,11 @@ public class StudentResultWithoutID
     /// </summary>
     /// <param name="studentID">int</param>
     /// <param name="moduleExaminationsID">int</param>
-    /// <param name="mark">double</param>
+    /// <param name="mark">decimal</param>
     public StudentResultWithoutID(
         int studentID,
         int moduleExaminationsID,
-        double mark)
+        decimal mark)
     {
         this.studentID = studentID;
         this.moduleExaminationsID = moduleExaminationsID;

@@ -51,7 +51,7 @@ public class ExaminationsController : Controller
     }
 
     [HttpDelete("{id}", Name = "DeleteExaminationByID")]
-    public IActionResult DeleteEWxaminationByID(int id)
+    public IActionResult DeleteExaminationByID(int id)
     {
         int rowsAffected = ExaminationCRUD.DeleteExaminationByID(id);
         return new ObjectResult($"Number of rows affected: {rowsAffected}");
