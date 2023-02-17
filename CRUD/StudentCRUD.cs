@@ -13,7 +13,7 @@ internal class StudentCRUD
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
         List<Student> studentsList = new List<Student> ();
-        using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM Students", connectDb.connection))
+        using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM students", connectDb.connection))
         {
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
                 while (reader.Read())

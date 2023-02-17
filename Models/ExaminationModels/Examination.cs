@@ -37,7 +37,7 @@ public class Examination
     /// </summary>
     /// <param name="reader">NpgsqlDataReader</param>
     /// <returns>Examination</returns>
-    public static Examination MapToStudent(NpgsqlDataReader reader)
+    public static Examination MapToExamination(NpgsqlDataReader reader)
     {
         int id = (int)reader["examinationid"];
         string title = (string)reader["title"];

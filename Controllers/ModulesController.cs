@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentResultsAPI.CRUD;
-using StudentResultsAPI.Models.LecturerModels;
 using StudentResultsAPI.Models.ModulesModels;
 
 namespace StudentResultsAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ModuleController : Controller
+public class ModulesController : Controller
 {
     [HttpGet(Name = "GetAllModules")]
     public IActionResult GetAllModules()

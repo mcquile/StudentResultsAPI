@@ -6,7 +6,7 @@ namespace StudentResultsAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class LecturerController : Controller
+public class LecturersController : Controller
 {
     [HttpGet(Name = "GetAllLecturers")]
     public IActionResult GetAllLecturers()

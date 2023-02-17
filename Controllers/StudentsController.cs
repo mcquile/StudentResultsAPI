@@ -6,16 +6,8 @@ namespace StudentResultsAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class StudentController : Controller
+public class StudentsController : Controller
 {
-
-    private readonly ILogger<StudentController> _logger;
-
-    public StudentController(ILogger<StudentController> logger)
-    {
-        _logger = logger;
-    }
-
     [HttpGet(Name = "GetAllStudents")]
     public IActionResult GetAllStudents()
     {
@@ -31,7 +23,7 @@ public class StudentController : Controller
     }
 
     [HttpPost]
-    public IActionResult CreateNewStudent([Bind("firstName, lastName", "dateOfBirth")] StudentWithoutID student)
+    public IActionResult CreateNewStudent([Bind("firstname", "lastname", "dateofbirth")] StudentWithoutID student)
     {
         if (student == null)
         {
@@ -56,8 +48,6 @@ public class StudentController : Controller
         int rowsAffected = StudentCRUD.UpdateStudent(id, student);
 
         return new ObjectResult($"Rows affected: {rowsAffected}");
-
-        //return CreatedAtRoute("GetStudentByID", new { id = id }, firstName);
     }
 
     [HttpDelete("{id}", Name = "DeleteStudentByID")]
