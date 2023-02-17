@@ -23,7 +23,7 @@ public class LecturerController : Controller
     }
 
     [HttpPost]
-    public IActionResult CreateNewLecturer([Bind("firstName, lastName")] LecturerWithoutID lecturer)
+    public IActionResult CreateNewLecturer([Bind("firstname, lastname")] LecturerWithoutID lecturer)
     {
         if (lecturer == null)
         {
@@ -35,12 +35,11 @@ public class LecturerController : Controller
         return CreatedAtRoute("GetLecturerByID", new { id = newLecturerID }, lecturer);
     }
 
-
     [HttpPut("{id}")]
     public IActionResult UpdateLecturer(
         int id,
-        [Bind("firstName")] string firstName = "",
-        [Bind("lastName")] string lastName = "")
+        [Bind("firstname")] string firstName = "",
+        [Bind("lastname")] string lastName = "")
     {
         LecturerWithoutID lecturer = new LecturerWithoutID(firstName, lastName);
 
