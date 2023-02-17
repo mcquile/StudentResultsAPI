@@ -37,7 +37,7 @@ public class ExaminationsController : Controller
 
 
     [HttpPut("{id}")]
-    public IActionResult UpdateStudent(
+    public IActionResult UpdateExamination(
         int id,
         [Bind("title")] string title = "",
         [Bind("buildingname")] string buildingName = "",

@@ -35,7 +35,7 @@ internal class ModuleExaminationCRUD
     public static ModuleExamination ReadModuleExaminationByID(int id)
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
-        string commandText = @"SELECT * FROM moduleexaminations WHERE moduleexaminationid = @id";
+        string commandText = @"SELECT * FROM moduleexaminations WHERE moduleexaminationsid = @id";
         using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
             cmd.Parameters.AddWithValue("id", id);
@@ -60,7 +60,7 @@ internal class ModuleExaminationCRUD
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
         int moduleExaminationID;
-        string commandText = @"INSERT INTO moduleexaminations (moduleid, examinationid) VALUES (@moduleid, @examinationid) RETURNING moduleexaminationid";
+        string commandText = @"INSERT INTO moduleexaminations (moduleid, examinationid) VALUES (@moduleid, @examinationid) RETURNING moduleexaminationsid";
         using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
             cmd.Parameters.AddWithValue("moduleid", moduleExamination.moduleID);
@@ -88,7 +88,7 @@ internal class ModuleExaminationCRUD
 
         List<string> columnNames = columnValueDictionary.Keys.ToList();
 
-        KeyValuePair<string, string> idKeyValuePair = new("moduleexaminationid", id.ToString());
+        KeyValuePair<string, string> idKeyValuePair = new("moduleexaminationsid", id.ToString());
 
         string commandText = UpdateUtility.generateUpdateQuery("moduleexaminations", columnNames, idKeyValuePair);
 
@@ -113,7 +113,7 @@ internal class ModuleExaminationCRUD
     {
         int rowsAffected = 0;
         ConnectDB connectDb = new ConnectDB().OpenConnection();
-        string commandText = $@"DELETE FROM moduleexaminations WHERE moduleexaminationid = @id";
+        string commandText = $@"DELETE FROM moduleexaminations WHERE moduleexaminationsid = @id";
         using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
             cmd.Parameters.AddWithValue("id", id);

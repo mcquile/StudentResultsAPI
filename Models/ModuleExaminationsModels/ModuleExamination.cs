@@ -34,7 +34,7 @@ public class ModuleExamination
     /// <returns>Lecturer</returns>
     public static ModuleExamination MapToModuleExamination(NpgsqlDataReader reader)
     {
-        int id = (int)reader["moduleexaminationid"];
+        int id = (int)reader["moduleexaminationsid"];
         int moduleID = (int)reader["moduleid"];
         int examinationID = (int)reader["examinationid"];
 
