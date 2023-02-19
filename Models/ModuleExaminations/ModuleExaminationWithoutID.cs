@@ -1,6 +1,4 @@
-using Npgsql;
-
-namespace StudentResultsAPI.Models.ModuleExaminationsModels;
+namespace StudentResultsAPI.Models.ModuleExaminations;
 
 /// <summary>
 /// Class that serves as a model for the ModuleExaminations table in the StudentResultsDB

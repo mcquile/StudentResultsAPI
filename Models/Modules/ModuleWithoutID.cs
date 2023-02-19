@@ -1,4 +1,4 @@
-namespace StudentResultsAPI.Models.ModulesModels;
+namespace StudentResultsAPI.Models.Modules;
 
 /// <summary>
 /// Class that serves as a model for the Lecturers table in the StudentResultsDB

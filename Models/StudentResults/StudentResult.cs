@@ -1,6 +1,6 @@
 using Npgsql;
 
-namespace StudentResultsAPI.Models.StudentResultsModels;
+namespace StudentResultsAPI.Models.StudentResults;
 
 /// <summary>
 /// Class that serves as a model for the StudentResults table in the StudentResultsDB

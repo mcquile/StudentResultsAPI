@@ -1,5 +1,5 @@
 using Npgsql;
-using StudentResultsAPI.Models.LecturerModels;
+using StudentResultsAPI.Models.Lecturers;
 
 namespace StudentResultsAPI.CRUD;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentResultsAPI.CRUD;
-using StudentResultsAPI.Models.LecturerModulesModels;
+using StudentResultsAPI.Models.LecturerModules;
 
 namespace StudentResultsAPI.Controllers;
 

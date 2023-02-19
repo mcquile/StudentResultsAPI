@@ -1,6 +1,6 @@
 using Npgsql;
 
-namespace StudentResultsAPI.Models.ModuleExaminationsModels;
+namespace StudentResultsAPI.Models.ModuleExaminations;
 
 /// <summary>
 /// Class that serves as a model for the ModuleExaminations table in the StudentResultsDB
@@ -31,7 +31,7 @@ public class ModuleExamination
     /// Maps the reader provide to a ModuleExamination object and returns the object.
     /// </summary>
     /// <param name="reader">NpgsqlDataReader</param>
-    /// <returns>Lecturer</returns>
+    /// <returns>ModuleExamination</returns>
     public static ModuleExamination MapToModuleExamination(NpgsqlDataReader reader)
     {
         int id = (int)reader["moduleexaminationsid"];
