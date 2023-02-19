@@ -1,57 +1,58 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentResultsAPI.CRUD;
-using StudentResultsAPI.Models.ModulesModels;
+using StudentResultsAPI.Models.LecturerModulesModels;
 
 namespace StudentResultsAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ModulesController : Controller
+public class LectureModulesController : Controller
 {
-    [HttpGet(Name = "GetAllModules")]
-    public IActionResult GetAllModules()
+    [HttpGet(Name = "GetAllLecturerModules")]
+    public IActionResult GetAllLectureModules()
     {
-        Module[] modules = ModuleCRUD.ReadAllModules();
+        LecturerModule[] modules = LecturerModuleCRUD.ReadAllLecturerModules();
         return new ObjectResult(modules);
     }
 
-    [HttpGet("{id}", Name = "GetModuleByID")]
-    public IActionResult GetModuleByID(int id)
+    [HttpGet("{id}", Name = "GetLecturerModuleByID")]
+    public IActionResult GetLecturerModuleByID(int id)
     {
-        Module module = ModuleCRUD.ReadModuleByID(id);
-        return new ObjectResult(module);
+        LecturerModule lecturerModule = LecturerModuleCRUD.ReadLecturerModuleByID(id);
+        return new ObjectResult(lecturerModule);
     }
 
     [HttpPost]
-    public IActionResult CreateNewModule([Bind("modulename")] ModuleWithoutID module)
+    public IActionResult CreateNewLecturerModule([Bind("lecturerid", "moduleid", "activestatus")] LecturerModuleWithoutID lecturerModule)
     {
-        if (module == null)
+        if (lecturerModule == null)
         {
             return BadRequest();
         }
 
-        int moduleID = ModuleCRUD.CreateModule(module);
+        int lecturerModuleID = LecturerModuleCRUD.CreateLecturerModule(lecturerModule);
 
-        return CreatedAtRoute("GetModuleByID", new { id = moduleID }, module);
+        return CreatedAtRoute("GetModuleByID", new { id = lecturerModuleID }, lecturerModule);
     }
 
 
     [HttpPut("{id}")]
     public IActionResult UpdateModule(
         int id,
-        [Bind("modulename")] string moduleName = "")
+        [Bind("lecturerid")] int lecturerID = -1,
+        [Bind("moduleid")] int moduleID = -1)
     {
-        ModuleWithoutID module = new ModuleWithoutID(moduleName);
+        LecturerModuleWithoutID lecturerModule = new LecturerModuleWithoutID(lecturerID, moduleID);
 
-        int rowsAffected = ModuleCRUD.UpdateModule(id, module);
+        int rowsAffected = LecturerModuleCRUD.UpdateLecturerModule(id, lecturerModule);
 
         return new ObjectResult($"Rows affected: {rowsAffected}");
     }
 
-    [HttpDelete("{id}", Name = "DeleteModuleByID")]
-    public IActionResult DeleteModuleByID(int id)
+    [HttpDelete("{id}", Name = "DeleteLecturerModuleByID")]
+    public IActionResult DeleteLecturerModuleByID(int id)
     {
-        int rowsAffected = ModuleCRUD.DeleteModuleByID(id);
+        int rowsAffected = LecturerModuleCRUD.DeleteLecturerModuleByID(id);
         return new ObjectResult($"Number of rows affected: {rowsAffected}");
     }
 }

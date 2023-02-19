@@ -33,9 +33,9 @@ public class ExaminationWithoutID
     /// Creates a dictionary entry for properties which are not null or empty.
     /// </summary>
     /// <returns>Dictionary</returns>
-    public Dictionary<string, string> mapDictionaryValues()
+    public Dictionary<string, object> mapDictionaryValues()
         {
-            Dictionary<string, string> setDictionary = new Dictionary<string, string>();
+            Dictionary<string, object> setDictionary = new Dictionary<string, object>();
 
             if (this.title.Length != 0)
             {
@@ -49,7 +49,7 @@ public class ExaminationWithoutID
 
             if (this.dateAndTime < DateTime.Now)
             {
-                setDictionary.Add("dateandtime", this.dateAndTime.ToString());
+                setDictionary.Add("dateandtime", this.dateAndTime);
             }
 
             return setDictionary;

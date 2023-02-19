@@ -23,8 +23,13 @@ public class ExaminationsController : Controller
     }
 
     [HttpPost]
-    public IActionResult CreateNewExamination([Bind("title", "dateandtime", "buildingname")] ExaminationWithoutID examination)
+    public IActionResult CreateNewExamination(
+        [Bind("title")] String title, 
+        [Bind("dateAndTime")] DateTime dateAndTime,
+        [Bind("buildingname")] String buildingName)
     {
+        ExaminationWithoutID examination = new ExaminationWithoutID(title, dateAndTime, buildingName);
+
         if (examination == null)
         {
             return BadRequest();
@@ -40,8 +45,8 @@ public class ExaminationsController : Controller
     public IActionResult UpdateExamination(
         int id,
         [Bind("title")] string title = "",
-        [Bind("buildingname")] string buildingName = "",
-        [Bind("datandtime")] DateTime? dateAndTime = null)
+        [Bind("datandtime")] DateTime? dateAndTime = null,
+        [Bind("buildingname")] string buildingName = "")
     {
         ExaminationWithoutID examination = new ExaminationWithoutID(title, dateAndTime, buildingName);
 

@@ -10,7 +10,6 @@ public class LecturerModule
     public int id { get; set; }
     public int lecturerID { get; set; }
     public int moduleID { get; set; }
-    public bool activeStatus { get; set; }
 
 
     /// <summary>
@@ -19,17 +18,14 @@ public class LecturerModule
     /// <param name="id">int</param>
     /// <param name="lecturerId">int</param>
     /// <param name="moduleId">int</param>
-    /// <param name="activeStatus">bool</param>
     public LecturerModule(
         int id,
         int lecturerId,
-        int moduleId,
-        bool activeStatus)
+        int moduleId)
     {
         this.id = id;
         this.lecturerID = lecturerId;
         this.moduleID = moduleId;
-        this.activeStatus = activeStatus;
     }
 
     /// <summary>
@@ -42,8 +38,7 @@ public class LecturerModule
         int id = (int)reader["lecturermodulesid"];
         int lecturerID = (int)reader["lecturerid"];
         int moduleID = (int)reader["moduleid"];
-        bool activeStatus = (bool)reader["activestatus"];
 
-        return new LecturerModule(id, lecturerID, moduleID, activeStatus);
+        return new LecturerModule(id, lecturerID, moduleID);
     }
 }

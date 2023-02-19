@@ -48,7 +48,7 @@ internal class LecturerModuleCRUD
                 }
         }
         connectDb.CloseConnection();
-        return new LecturerModule(-1, -1,  -1, false);
+        return new LecturerModule(-1, -1,  -1);
     }
 
     /// <summary>
@@ -60,12 +60,11 @@ internal class LecturerModuleCRUD
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
         int lecturerModuleID;
-        string commandText = @"INSERT INTO lecturermodules (lecturerid, moduleid, activestatus) VALUES (@lecturerid, @moduleid, @activestatus) RETURNING lecturermodulesid";
+        string commandText = @"INSERT INTO lecturermodules (lecturerid, moduleid) VALUES (@lecturerid, @moduleid) RETURNING lecturermodulesid";
         using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
             cmd.Parameters.AddWithValue("lecturerid", lecturerModule.lecturerID);
             cmd.Parameters.AddWithValue("moduleid", lecturerModule.moduleID);
-            cmd.Parameters.AddWithValue("activestatus", lecturerModule.activeStatus);
 
             lecturerModuleID = (int)cmd.ExecuteScalar();
         }
@@ -82,10 +81,10 @@ internal class LecturerModuleCRUD
     public static int UpdateLecturerModule(int id,LecturerModuleWithoutID lecturerModule)
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
-
+        
         int rowsAffected = 0;
 
-        Dictionary<string, string> columnValueDictionary = lecturerModule.mapDictionaryValues();
+        Dictionary<string, object> columnValueDictionary = lecturerModule.mapDictionaryValues();
 
         List<string> columnNames = columnValueDictionary.Keys.ToList();
 
@@ -95,7 +94,7 @@ internal class LecturerModuleCRUD
 
         using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
-            foreach (KeyValuePair<string, string> columnValue in columnValueDictionary)
+            foreach (KeyValuePair<string, object> columnValue in columnValueDictionary)
             {
                 cmd.Parameters.AddWithValue(columnValue.Key, columnValue.Value);
             }

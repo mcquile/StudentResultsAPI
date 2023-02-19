@@ -35,7 +35,7 @@ internal class ModuleExaminationCRUD
     public static ModuleExamination ReadModuleExaminationByID(int id)
     {
         ConnectDB connectDb = new ConnectDB().OpenConnection();
-        string commandText = @"SELECT * FROM moduleexaminations WHERE moduleexaminationsid = @id";
+        string commandText = @"SELECT * FROM moduleexaminations WHERE moduleexaminationsID = @id";
         using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
             cmd.Parameters.AddWithValue("id", id);
@@ -84,7 +84,7 @@ internal class ModuleExaminationCRUD
 
         int rowsAffected = 0;
 
-        Dictionary<string, string> columnValueDictionary = examination.mapDictionaryValues();
+        Dictionary<string, object> columnValueDictionary = examination.mapDictionaryValues();
 
         List<string> columnNames = columnValueDictionary.Keys.ToList();
 
@@ -94,7 +94,7 @@ internal class ModuleExaminationCRUD
 
         using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
-            foreach (KeyValuePair<string, string> columnValue in columnValueDictionary)
+            foreach (KeyValuePair<string, object> columnValue in columnValueDictionary)
             {
                 cmd.Parameters.AddWithValue(columnValue.Key, columnValue.Value);
             }

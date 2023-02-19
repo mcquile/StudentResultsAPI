@@ -9,7 +9,6 @@ public class LecturerModuleWithoutID
 {
     public int lecturerID { get; set; }
     public int moduleID { get; set; }
-    public bool activeStatus { get; set; }
 
 
     /// <summary>
@@ -17,15 +16,29 @@ public class LecturerModuleWithoutID
     /// </summary>
     /// <param name="lecturerId">int</param>
     /// <param name="moduleId">int</param>
-    /// <param name="activeStatus">bool</param>
     public LecturerModuleWithoutID(
         int lecturerId,
-        int moduleId,
-        bool activeStatus)
+        int moduleId)
     {
         this.lecturerID = lecturerId;
         this.moduleID = moduleId;
-        this.activeStatus = activeStatus;
     }
 
+    public Dictionary<string, object> mapDictionaryValues()
+    {
+        Dictionary<string, object> setDictionary = new Dictionary<string, object>();
+
+        if (this.lecturerID > 0)
+        {
+            setDictionary.Add("lecturerid", this.lecturerID);
+        }
+
+        if (this.moduleID > 0)
+        {
+            setDictionary.Add("moduleid", this.moduleID);
+        }
+
+
+        return setDictionary;
+    }
 }

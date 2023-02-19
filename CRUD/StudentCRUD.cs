@@ -85,7 +85,7 @@ internal class StudentCRUD
 
         int rowsAffected = 0;
 
-        Dictionary<string, string> columnValueDictionary = student.mapDictionaryValues();
+        Dictionary<string, object> columnValueDictionary = student.mapDictionaryValues();
 
         List<string> columnNames = columnValueDictionary.Keys.ToList();
 
@@ -95,7 +95,7 @@ internal class StudentCRUD
 
         using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
-            foreach (KeyValuePair<string, string> columnValue in columnValueDictionary)
+            foreach (KeyValuePair<string, object> columnValue in columnValueDictionary)
             {
                 cmd.Parameters.AddWithValue(columnValue.Key, columnValue.Value);
             }

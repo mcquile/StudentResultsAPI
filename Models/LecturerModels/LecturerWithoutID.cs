@@ -25,9 +25,9 @@ public class LecturerWithoutID
     /// Creates a dictionary entry for properties which are not null or empty.
     /// </summary>
     /// <returns>Dictionary</returns>
-    public Dictionary<string, string> mapDictionaryValues()
+    public Dictionary<string, object> mapDictionaryValues()
     {
-        Dictionary<string, string> setDictionary = new Dictionary<string, string>();
+        Dictionary<string, object> setDictionary = new Dictionary<string, object>();
 
         if (this.firstName.Length != 0)
         {

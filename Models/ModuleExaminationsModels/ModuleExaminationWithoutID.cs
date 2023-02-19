@@ -27,18 +27,18 @@ public class ModuleExaminationWithoutID
     /// Creates a dictionary entry for properties which are not null or empty.
     /// </summary>
     /// <returns>Dictionary</returns>
-    public Dictionary<string, string> mapDictionaryValues()
+    public Dictionary<string, object> mapDictionaryValues()
     {
-        Dictionary<string, string> setDictionary = new Dictionary<string, string>();
+        Dictionary<string, object> setDictionary = new Dictionary<string, object>();
 
         if (this.moduleID > 0)
         {
-            setDictionary.Add("moduleid", this.moduleID.ToString());
+            setDictionary.Add("moduleid", this.moduleID);
         }
 
         if (this.examinationID > 0)
         {
-            setDictionary.Add("examinationid", this.examinationID.ToString());
+            setDictionary.Add("examinationid", this.examinationID);
         }
 
         return setDictionary;

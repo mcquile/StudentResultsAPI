@@ -82,7 +82,7 @@ internal class ModuleCRUD
 
         int rowsAffected = 0;
 
-        Dictionary<string, string> columnValueDictionary = module.mapDictionaryValues();
+        Dictionary<string, object> columnValueDictionary = module.mapDictionaryValues();
 
         List<string> columnNames = columnValueDictionary.Keys.ToList();
 
@@ -92,7 +92,7 @@ internal class ModuleCRUD
 
         using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connectDb.connection))
         {
-            foreach (KeyValuePair<string, string> columnValue in columnValueDictionary)
+            foreach (KeyValuePair<string, object> columnValue in columnValueDictionary)
             {
                 cmd.Parameters.AddWithValue(columnValue.Key, columnValue.Value);
             }
